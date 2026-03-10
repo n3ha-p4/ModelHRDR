@@ -6,6 +6,7 @@ Evaluation module: computes and visualizes all performance metrics.
 - ROC Curve
 """
 import os
+import json
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")  # Non-interactive backend for saving plots
@@ -174,6 +175,21 @@ def run_evaluation(y_true, y_pred, y_probs, fold_accuracies):
     plot_fold_accuracies(fold_accuracies)
     plot_roc_curve(y_true, y_probs)
     plot_metrics_summary(metrics)
+
+    # Save a machine-readable summary for reporting and reproducibility.
+    summary = {
+        "accuracy": float(metrics["accuracy"]),
+        "precision": float(metrics["precision"]),
+        "recall": float(metrics["recall"]),
+        "f1_score": float(metrics["f1_score"]),
+        "fold_accuracies": [float(acc) for acc in fold_accuracies],
+        "mean_fold_accuracy": float(np.mean(fold_accuracies)),
+        "std_fold_accuracy": float(np.std(fold_accuracies)),
+    }
+    metrics_json_path = os.path.join(config.PLOTS_DIR, "metrics_summary.json")
+    with open(metrics_json_path, "w", encoding="utf-8") as f:
+        json.dump(summary, f, indent=2)
+    print(f"  Metrics JSON saved to {metrics_json_path}")
 
     print(f"\n  All plots saved to: {config.PLOTS_DIR}")
     return metrics

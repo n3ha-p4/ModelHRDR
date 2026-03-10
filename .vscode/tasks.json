@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run metric summary",
+			"type": "shell",
+			"command": "c:\\Users\\neha\\Documents\\ModelHRDR\\.venv\\Scripts\\python.exe",
+			"args": [
+				"c:\\Users\\neha\\Documents\\ModelHRDR\\run_metrics_summary.py"
+			],
+			"isBackground": false
+		}
+	]
+}
