@@ -1,8 +1,3 @@
-"""
-Training pipeline with Stratified K-Fold Cross Validation.
-Handles class imbalance with weighted loss and weighted sampling.
-Includes early stopping and learning rate scheduling.
-"""
 import os
 import json
 import time
